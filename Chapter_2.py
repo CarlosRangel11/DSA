@@ -1,5 +1,4 @@
 from time import perf_counter
-from time import sleep
 import numpy as np
 import math
 
