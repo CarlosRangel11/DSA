@@ -13,6 +13,23 @@ from time import sleep
 # fire the current employee & hire that one ON THE SPOT. It is our
 # job to figure out what the price of this strategy would be. 
 
+# Class to explore FILEIO in python. 
+class Log:
+    def __init__(self, filename):
+        self.file = open(filename, "a")
+
+    def log_hire(self, message):
+        self.file.write(message + "\n")
+
+    def log_total_costs(self, costs):
+        self.file.write(f"Total Costs of interviewing: ")
+
+    def close(self):
+        self.file.close()
+
+
+log = Log("Spendings.txt")
+
 global_candidate = -1
 fired_employees = []
 interviewing_cost = 0
@@ -33,6 +50,17 @@ def hire_assistant(n):
             print(f"Current candidate: {global_candidate}")
 
 
+
+def randomized_hire_assistant(n):
+
+    # permute the list of candidates
+    
+
+    hire_assistant(n)
+
+    return
+
+
 # just a random algoritm to generate random bool results
 def interview_candidate(i):
     print(f"Interviewing candidate {i}. . . ")
@@ -43,6 +71,9 @@ def interview_candidate(i):
 def hire_candidate(i):
     global global_candidate
     global_candidate = i
+
+def note_cost(cost):
+    return
 
 
 hire_assistant(10)
