@@ -1,5 +1,6 @@
 import random
 from time import sleep
+import numpy as np
 
 # The Hiring Problem
 # We use an employment agency to send a candidate
@@ -28,7 +29,7 @@ class Log:
         self.file.close()
 
 
-log = Log("Spendings.txt")
+# log = Log("Spendings.txt")
 
 global_candidate = -1
 fired_employees = []
@@ -36,43 +37,44 @@ interviewing_cost = 0
 hiring_cost = 0 
 
 def hire_assistant(n):
+
+
     best = 0    # Dummy Candidate
     for i in range(1, n):
+        global interviewing_cost
+
+        interviewing_cost += 1
         interview_result = interview_candidate(i)
         if(interview_result):
-            global fired_employees
+            global fired_employees, hiring_cost
             fired_employees.append(best)
+
+            hiring_cost += 1
 
             best = i
             hire_candidate(i)
 
-            print(f"Candidate {global_candidate} has been replaced by {i}!")
-            print(f"Current candidate: {global_candidate}")
-
-
-
-def randomized_hire_assistant(n):
-
-    # permute the list of candidates
-    
-
-    hire_assistant(n)
-
-    return
+            # print(f"Candidate {global_candidate} has been replaced by {i}!")
+            # print(f"Current candidate: {global_candidate}")
 
 
 # just a random algoritm to generate random bool results
 def interview_candidate(i):
-    print(f"Interviewing candidate {i}. . . ")
-    for x in range(0, 3):
-        sleep(1)
+    # print(f"Interviewing candidate {i}. . . ")
+    # sleep(3)
     return (random.random() % 2) > 0.5
 
 def hire_candidate(i):
     global global_candidate
     global_candidate = i
 
-def note_cost(cost):
+def random_permutation(array, n):
+    for i in range(0, n):
+        rand_i = random.randint(i, n-1)
+
+        temp = array[i]
+        array[i] = array[rand_i]
+        array[rand_i] = array[i]
     return
 
 
@@ -80,6 +82,22 @@ hire_assistant(10)
 print(f"Final Candidate: {global_candidate}")
 print(f"Fired Employees: {fired_employees}")
 
+total_costs = (interviewing_cost * 49.99) + (hiring_cost * 249.99)
+print(f"Total Costs: {total_costs}")
+
+list_of_employees = np.random.randint(100, size=50, dtype=np.int64)
+
+print(f"List of employees before permutation: {list_of_employees}")
+
+random_permutation(list_of_employees, len(list_of_employees))
+print(f"List of employees AFTER permutation: {list_of_employees}")
+
+hire_assistant(10)
+print(f"Final Candidate: {global_candidate}")
+print(f"Fired Employees: {fired_employees}")
+
+total_costs = (interviewing_cost * 49.99) + (hiring_cost * 249.99)
+print(f"Total Costs: {total_costs}")
 
 # Cost of hiring people is O(hiring_cost * ln(n))
 # as the list goes on, the formula of the probability of each person getting hired
