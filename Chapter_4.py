@@ -15,8 +15,8 @@ def matrix_multiply(A, B, C, n):
 def matrix_multiply_recursive(A, B, C, n):
     # base case
     if n == 1:
-        print(f"A: \n{A}")
-        print(f"A at n = {n}: {A[0, 0]}")
+        # print(f"A: \n{A}")
+        # print(f"A at n = {n}: {A[0, 0]}")
         C[0, 0] += A[0, 0] * B[0, 0]
         return
     
@@ -27,7 +27,7 @@ def matrix_multiply_recursive(A, B, C, n):
     A11 = A[:mid, :mid]
     A12 = A[:mid, mid:]
     A21 = A[mid:, :mid]
-    A22 = A[mid: mid:]
+    A22 = A[mid:, mid:]
 
     B11 = B[:mid, :mid]
     B12 = B[:mid, mid:]
@@ -54,15 +54,17 @@ def matrix_multiply_recursive(A, B, C, n):
 
 
  
-n = 4
+n = 16
 
-A = np.random.randint(100, size=(n,n), dtype=np.int64)
-B = np.random.randint(100, size=(n,n), dtype=np.int64)
+A = np.random.randint(10, size=(n,n), dtype=np.int64)
+B = np.random.randint(10, size=(n,n), dtype=np.int64)
 C = np.zeros((n,n), dtype=np.int64)
 
 _A = A.copy()
 _B = B.copy()
 _C = C.copy()
+
+# print(f"{_A}\n{_B}\n{_C}\n")
 
 print(f"""
 ##############################################################
@@ -93,4 +95,4 @@ start = perf_counter()
 matrix_multiply_recursive(_A, _B, _C, n)
 end = perf_counter()
 
-print(f"{C}\n\nmultiplied in {end-start} time!")
+print(f"{_C}\n\nmultiplied in {end-start} time!")
